@@ -1,6 +1,11 @@
 import { OPENAI_API_KEY } from "$env/static/private";
+import type { Config } from "@sveltejs/adapter-vercel";
 import OpenAI from "openai";
 import type { RequestHandler } from "./$types";
+
+export const config: Config = {
+	runtime: "edge",
+};
 
 const openai = new OpenAI({ apiKey: OPENAI_API_KEY });
 
