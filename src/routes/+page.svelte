@@ -2,6 +2,7 @@
 	import Preview from "$lib/components/Preview.svelte";
 	import { Button } from "$lib/components/ui/button";
 	import { Textarea } from "$lib/components/ui/textarea";
+	import { Github } from "lucide-svelte";
 	import { toast } from "svelte-sonner";
 
 	let status: "ready" | "cooldown" = "ready";
@@ -51,6 +52,14 @@
 	<div class="mx-4 flex max-w-lg flex-col gap-8">
 		<div class="flex flex-col items-center gap-2 text-center">
 			<h2 class="text-xl">Generate UI from text prompts with AI and Tailwind CSS.</h2>
+			<a
+				href="https://github.com/dotnize/prompt-ui"
+				title="dotnize/prompt-ui"
+				target="_blank"
+				class="flex items-center gap-1 text-xs text-muted-foreground hover:underline"
+			>
+				<Github class="h-4 w-4" />Source code on GitHub.
+			</a>
 		</div>
 
 		<form
