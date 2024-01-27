@@ -1,5 +1,10 @@
 {
-	"name": "svelte-playground",
+	"name": "prompt-ui",
+	"author": {
+		"name": "Nathaniel Tampus",
+		"email": "hi@nize.foo"
+	},
+	"license": "MIT",
 	"version": "0.0.1",
 	"private": true,
 	"scripts": {
@@ -33,5 +38,17 @@
 		"typescript": "^5.3.3",
 		"vite": "^5.0.12"
 	},
-	"type": "module"
+	"type": "module",
+	"dependencies": {
+		"bits-ui": "^0.15.1",
+		"clsx": "^2.1.0",
+		"highlight.js": "^11.9.0",
+		"lucide-svelte": "^0.316.0",
+		"mode-watcher": "^0.1.2",
+		"openai": "^4.26.0",
+		"svelte-highlight": "^7.4.8",
+		"svelte-sonner": "^0.3.11",
+		"tailwind-merge": "^2.2.1",
+		"tailwind-variants": "^0.1.20"
+	}
 }
