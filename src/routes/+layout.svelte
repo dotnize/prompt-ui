@@ -8,6 +8,7 @@
 
 <svelte:head>
 	<title>prompt-ui</title>
+	<meta name="description" content="Generate UI from text prompts with AI and Tailwind CSS." />
 </svelte:head>
 
 <ModeWatcher />
