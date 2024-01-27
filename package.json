@@ -41,6 +41,7 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"ai": "^2.2.31",
 		"bits-ui": "^0.15.1",
 		"clsx": "^2.1.0",
 		"highlight.js": "^11.9.0",

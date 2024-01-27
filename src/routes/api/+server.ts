@@ -1,6 +1,8 @@
-import { OPENAI_API_KEY } from "$env/static/private";
 import type { Config } from "@sveltejs/adapter-vercel";
+import { OpenAIStream, StreamingTextResponse } from "ai";
 import OpenAI from "openai";
+
+import { OPENAI_API_KEY } from "$env/static/private";
 import type { RequestHandler } from "./$types";
 
 export const config: Config = {
@@ -18,8 +20,9 @@ export const POST: RequestHandler = async ({ request }) => {
 	if (!body.prompt) {
 		return new Response("No prompt provided", { status: 400 });
 	}
-	const gen = await openai.chat.completions.create({
+	const response = await openai.chat.completions.create({
 		model: "gpt-3.5-turbo",
+		stream: true,
 		messages: [
 			{ role: "system", content: persona },
 			{ role: "user", content: body.prompt },
@@ -27,6 +30,7 @@ export const POST: RequestHandler = async ({ request }) => {
 		max_tokens: 2048,
 	});
 
-	const result = gen.choices[0].message.content;
-	return new Response(result);
+	const stream = OpenAIStream(response);
+
+	return new StreamingTextResponse(stream);
 };
