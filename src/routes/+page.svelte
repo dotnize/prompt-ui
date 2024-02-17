@@ -32,6 +32,9 @@
 		toast.promise(req, {
 			loading: "Generating...",
 			success: (data) => {
+				if (data.startsWith("```html") && data.endsWith("```")) {
+					data = data.slice(7, -3);
+				}
 				result = data;
 				setTimeout(() => {
 					status = "ready";
