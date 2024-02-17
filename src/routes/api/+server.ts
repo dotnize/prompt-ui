@@ -27,7 +27,7 @@ export const POST: RequestHandler = async ({ request }) => {
 			{ role: "system", content: persona },
 			{ role: "user", content: body.prompt },
 		],
-		max_tokens: 2048,
+		max_tokens: 1536,
 	});
 
 	const stream = OpenAIStream(response);
