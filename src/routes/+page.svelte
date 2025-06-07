@@ -2,92 +2,83 @@
 	import Preview from "$lib/components/Preview.svelte";
 	import { Button } from "$lib/components/ui/button";
 	import { Textarea } from "$lib/components/ui/textarea";
-	import { Github } from "lucide-svelte";
+	import { Github } from "@lucide/svelte";
 	import { toast } from "svelte-sonner";
+	import { Chat } from "@ai-sdk/svelte";
 
-	let status: "ready" | "cooldown" = "ready";
-	let result: string;
+	let finished = $state(false);
 
-	async function apiFetch(prompt: string) {
-		const res = await fetch("/api", {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify({ prompt }),
-		});
-		if (!res.ok) throw new Error("Returned non-200 status code.");
-		return res.text();
-	}
+	const chat = new Chat({
+		onError: (e) => {
+			console.error(e);
+			toast.dismiss();
+			toast.error("An error occurred while generating the UI. Please try again.");
+		},
+		onFinish: () => {
+			toast.dismiss();
+			finished = true;
+			toast.success("UI generated successfully!");
+		},
+	});
 
-	async function submitPrompt(e: SubmitEvent & { currentTarget: EventTarget & HTMLFormElement }) {
-		status = "cooldown";
+	const result: string | undefined = $derived.by(() => {
+		const message = chat.messages.find((msg) => msg.role === "assistant")?.content;
 
+		if (!message) {
+			return undefined;
+		}
+
+		// Remove code block wrapping if present
+		return message.replace(/^(```html|```)|```$/g, "");
+	});
+
+	function handleSubmit(e: SubmitEvent & { currentTarget: EventTarget & HTMLFormElement }) {
 		if (e.currentTarget.prompt.value.length < 12) {
 			toast.warning("Prompt must be at least 12 characters long.");
-			status = "ready";
 			return;
 		}
-		const req = apiFetch(e.currentTarget.prompt.value);
-		toast.promise(req, {
-			loading: "Generating...",
-			success: (data) => {
-				if (data.startsWith("```html") && data.endsWith("```")) {
-					data = data.slice(7, -3);
-				}
-				result = data;
-				setTimeout(() => {
-					status = "ready";
-				}, 8000);
-				return "Generated!";
-			},
-			error: () => {
-				setTimeout(() => {
-					status = "ready";
-				}, 4000);
-				return "An error occurred while generating.";
-			},
-		});
+		chat.input = e.currentTarget.prompt.value;
+		chat.messages = [];
+		finished = false;
+		toast("Generating...");
+		chat.handleSubmit(e);
 	}
 </script>
 
-<div class="flex flex-col items-center gap-8">
-	<div class="mx-4 flex max-w-lg flex-col gap-8">
+<div class="flex flex-col items-center gap-6">
+	<div class="mx-4 flex max-w-xl flex-col gap-8">
 		<div class="flex flex-col items-center gap-2 text-center">
-			<h2 class="text-xl">Generate UI from text prompts with AI and Tailwind CSS.</h2>
+			<h2 class="text-xl font-semibold">Generate UI from text prompts with AI and Tailwind CSS.</h2>
 			<a
 				href="https://github.com/dotnize/prompt-ui"
 				title="dotnize/prompt-ui"
 				target="_blank"
-				class="flex items-center gap-1 text-xs text-muted-foreground hover:underline"
+				class="text-muted-foreground flex items-center gap-1 text-xs hover:underline"
 			>
 				<Github class="h-4 w-4" />Source code on GitHub.
 			</a>
 		</div>
 
-		<form
-			method="POST"
-			action="/api"
-			on:submit|preventDefault={submitPrompt}
-			class="flex flex-col gap-2"
-		>
+		<form method="POST" onsubmit={handleSubmit} class="flex flex-col gap-2">
 			<Textarea
 				name="prompt"
 				id="prompt"
 				minlength={12}
 				maxlength={256}
 				required
-				placeholder="A homepage for my thrift store business"
+				placeholder="A colorful and stylish homepage for my thrift store business"
 			/>
 			<div class="flex justify-between">
-				<label for="prompt" class="text-xs text-muted-foreground">
+				<label for="prompt" class="text-muted-foreground text-xs">
 					Minimum of 12 characters.
 				</label>
-				<Button disabled={status !== "ready"} type="submit">Generate</Button>
+				<Button disabled={chat.status !== "ready"} type="submit"
+					>{chat.status === "ready" ? "Generate" : "Generating..."}</Button
+				>
 			</div>
 		</form>
 	</div>
 	{#if result}
-		<Preview code={result} />
+		<Preview code={result} complete={finished} />
 	{/if}
 </div>

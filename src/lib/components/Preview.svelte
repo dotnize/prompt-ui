@@ -1,18 +1,17 @@
 <script lang="ts">
+	import * as Tabs from "$lib/components/ui/tabs";
 	import { Button } from "$lib/components/ui/button";
-	import { Label } from "$lib/components/ui/label";
-	import { Switch } from "$lib/components/ui/switch";
-
-	import { Copy } from "lucide-svelte";
 	import { toast } from "svelte-sonner";
-
-	import Highlight from "svelte-highlight";
+	import { Copy } from "@lucide/svelte";
+	import Highlight, { LineNumbers } from "svelte-highlight";
 	import xml from "svelte-highlight/languages/xml";
 	import theme from "svelte-highlight/styles/hybrid";
 
-	export let code: string;
-
-	let showCode = false;
+	interface Props {
+		code: string;
+		complete: boolean;
+	}
+	let { code, complete }: Props = $props();
 
 	function copyCode() {
 		if ("clipboard" in navigator) {
@@ -22,34 +21,49 @@
 		}
 		toast.success("Copied to clipboard.");
 	}
+
+	let value = $state<"code" | "preview">("code");
+
+	$effect(() => {
+		if (complete === false) {
+			value = "code";
+		} else {
+			value = "preview";
+		}
+	});
 </script>
 
 <svelte:head>
 	{@html theme}
 </svelte:head>
 
-<div class="flex h-screen w-screen flex-col items-center p-2 sm:p-8 md:p-16 lg:px-24">
-	<div class="mx-4 flex w-full max-w-lg items-center justify-between pb-4">
-		<div class="flex items-center gap-2">
-			<Switch
-				checked={showCode}
-				onCheckedChange={(val) => {
-					showCode = val;
-				}}
-				id="toggle-code"
-			/>
-			<Label class="text-lg" for="toggle-code">Show code</Label>
-		</div>
-		<Button variant="outline" on:click={copyCode}>
-			<Copy class="mr-2 h-4 w-4" />
-			Copy to clipboard
+<Tabs.Root bind:value class="h-screen w-full max-w-[96vw] min-w-[96vw] py-2 sm:py-8">
+	<div class="flex items-center gap-2">
+		<Tabs.List>
+			<Tabs.Trigger value="code" class="px-4">Code</Tabs.Trigger>
+			<Tabs.Trigger
+				value="preview"
+				disabled={!complete}
+				class="px-4"
+				title={complete ? undefined : "UI is still generating..."}>Preview</Tabs.Trigger
+			>
+		</Tabs.List>
+		<Button variant="secondary" size="icon" onclick={copyCode} disabled={!complete}>
+			<Copy class="h-4 w-4" />
+			<span class="sr-only">Copy to clipboard</span>
 		</Button>
 	</div>
-	{#if showCode}
-		<div class="h-full w-full overflow-auto">
-			<Highlight class="h-full w-full rounded-md" language={xml} {code} />
-		</div>
-	{:else}
-		<iframe class="h-full w-full" title="Preview" srcdoc={code} />
-	{/if}
-</div>
+	<Tabs.Content value="preview">
+		<iframe class="h-full w-full rounded-lg pb-8" title="Preview" srcdoc={code}></iframe>
+	</Tabs.Content>
+	<Tabs.Content value="code">
+		<Highlight language={xml} {code} let:highlighted>
+			<LineNumbers
+				{highlighted}
+				wrapLines
+				hideBorder
+				class="h-full max-h-[90vh] w-full overflow-auto rounded-lg"
+			/>
+		</Highlight>
+	</Tabs.Content>
+</Tabs.Root>

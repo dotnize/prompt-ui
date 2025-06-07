@@ -1,9 +1,10 @@
-<script>
+<script lang="ts">
 	import { ModeWatcher } from "mode-watcher";
-	import "../app.css";
-
-	import ThemeToggle from "$lib/components/ThemeToggle.svelte";
 	import { Toaster } from "$lib/components/ui/sonner";
+	import "../app.css";
+	import ThemeToggle from "$lib/components/ThemeToggle.svelte";
+
+	let { children } = $props();
 </script>
 
 <svelte:head>
@@ -16,9 +17,9 @@
 
 <header class="flex items-center justify-center gap-6 py-16">
 	<h1 class="font-bold">prompt-ui</h1>
-
 	<ThemeToggle />
 </header>
+
 <main class="flex items-center justify-center">
-	<slot />
+	{@render children()}
 </main>
