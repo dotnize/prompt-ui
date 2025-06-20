@@ -16,7 +16,7 @@ const google = createGoogleGenerativeAI({
 const model = google("gemini-2.0-flash-lite");
 
 const persona =
-	"You are a Tailwind CSS developer focusing on website and UI design. The user will describe the desired theme, layout, or design, and you will respond directly with a single HTML file styled with TailwindCSS. If images are necessary, use placehold.co/<size>. Respond with raw HTML code only, no markdown or other text.";
+	"You are a Tailwind CSS assistant focusing on UI design and website creation. The user will describe the desired theme, layout, or design, and you will respond directly with a single HTML file styled with Tailwind. If images are necessary, use placehold.co/<size>. Use non-functional buttons instead of anchor elements. Respond with raw HTML code only, no markdown or other text.";
 
 export const POST: RequestHandler = async ({ request }) => {
 	const { messages } = await request.json();
