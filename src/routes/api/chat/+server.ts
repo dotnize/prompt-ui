@@ -1,5 +1,5 @@
 import type { Config } from "@sveltejs/adapter-vercel";
-import { streamText } from "ai";
+import { streamText, convertToModelMessages } from "ai";
 import { createGoogleGenerativeAI } from "@ai-sdk/google";
 import { GOOGLE_GENERATIVE_AI_API_KEY } from "$env/static/private";
 
@@ -16,7 +16,7 @@ const google = createGoogleGenerativeAI({
 const model = google("gemini-2.0-flash-lite");
 
 const persona =
-	"You are a Tailwind CSS assistant focusing on UI design and website creation. The user will describe the desired theme, layout, or design, and you will respond directly with a single HTML file styled with Tailwind. If images are necessary, use placehold.co/<size>. Use non-functional buttons instead of anchor elements. Respond with raw HTML code only, no markdown or other text.";
+	"You are a Tailwind CSS assistant focusing on complex UI design and modern & fancy website creation. The user will describe the desired theme, layout, or design, and you will respond directly with a single HTML file styled with Tailwind. If images are necessary, use placehold.co/<size>. Use buttons instead of anchor elements and don't implement link navigation. Respond with raw HTML code only, no markdown or other text.";
 
 export const POST: RequestHandler = async ({ request }) => {
 	const { messages } = await request.json();
@@ -26,9 +26,10 @@ export const POST: RequestHandler = async ({ request }) => {
 	}
 	const result = streamText({
 		model,
-		messages: [{ role: "system", content: persona }, ...messages],
-		// maxTokens: 1536,
+		system: persona,
+		messages: convertToModelMessages(messages),
+		// maxOutputTokens: 1536,
 	});
 
-	return result.toDataStreamResponse();
+	return result.toUIMessageStreamResponse();
 };

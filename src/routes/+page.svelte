@@ -22,7 +22,9 @@
 	});
 
 	const result: string | undefined = $derived.by(() => {
-		const message = chat.messages.find((msg) => msg.role === "assistant")?.content;
+		const message = chat.messages
+			.find((msg) => msg.role === "assistant")
+			?.parts.find((p) => p.type === "text")?.text;
 
 		if (!message) {
 			return undefined;
@@ -33,15 +35,15 @@
 	});
 
 	function handleSubmit(e: SubmitEvent & { currentTarget: EventTarget & HTMLFormElement }) {
+		e.preventDefault();
 		if (e.currentTarget.prompt.value.length < 12) {
 			toast.warning("Prompt must be at least 12 characters long.");
 			return;
 		}
-		chat.input = e.currentTarget.prompt.value;
 		chat.messages = [];
 		finished = false;
 		toast("Generating...");
-		chat.handleSubmit(e);
+		chat.sendMessage({ text: e.currentTarget.prompt.value, role: "user" });
 	}
 </script>
 
