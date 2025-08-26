@@ -74,9 +74,9 @@
 				<label for="prompt" class="text-muted-foreground text-xs">
 					Minimum of 12 characters.
 				</label>
-				<Button disabled={chat.status !== "ready"} type="submit"
-					>{chat.status === "ready" ? "Generate" : "Generating..."}</Button
-				>
+				<Button disabled={chat.status !== "ready"} type="submit">
+					{chat.status === "ready" ? "Generate" : "Generating..."}
+				</Button>
 			</div>
 		</form>
 	</div>
