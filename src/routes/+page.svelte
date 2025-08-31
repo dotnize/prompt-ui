@@ -66,7 +66,7 @@
 				name="prompt"
 				id="prompt"
 				minlength={12}
-				maxlength={256}
+				maxlength={400}
 				required
 				placeholder="A colorful and stylish homepage for my thrift store business"
 			/>
