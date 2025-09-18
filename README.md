@@ -6,6 +6,8 @@ An oversimplified UI generator for creating web pages from text prompts with Gem
 
 Inspired by [v0](https://v0.dev/) and [draw-a-ui](https://github.com/SawyerHood/draw-a-ui). Built with SvelteKit, Tailwind CSS, shadcn-svelte and Vercel AI SDK.
 
+<img src="./static/demo.png" alt="prompt-ui demo" width="600" />
+
 ## Environment Variables
 
 ```env
