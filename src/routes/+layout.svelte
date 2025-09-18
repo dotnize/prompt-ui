@@ -9,13 +9,16 @@
 
 <svelte:head>
 	<title>prompt-ui</title>
-	<meta name="description" content="Generate UI from text prompts with AI and Tailwind CSS." />
+	<meta
+		name="description"
+		content="An oversimplified UI generator for creating web pages from text prompts with Gemini and Tailwind CSS."
+	/>
 </svelte:head>
 
 <ModeWatcher />
 <Toaster richColors />
 
-<header class="flex items-center justify-center gap-6 py-16">
+<header class="flex items-center justify-center gap-4 py-16">
 	<h1 class="font-bold">prompt-ui</h1>
 	<ThemeToggle />
 </header>

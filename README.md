@@ -1,8 +1,8 @@
 # prompt-ui
 
-Generate user interfaces from text prompts with Gemini and Tailwind CSS.
+[prompt-ui.nize.ph](https://prompt-ui.nize.ph)
 
-> **Note:** This is a demo project and not intended for production use.
+An oversimplified UI generator for creating web pages from text prompts with Gemini and Tailwind CSS.
 
 Inspired by [v0](https://v0.dev/) and [draw-a-ui](https://github.com/SawyerHood/draw-a-ui). Built with SvelteKit, Tailwind CSS, shadcn-svelte and Vercel AI SDK.
 
@@ -12,6 +12,6 @@ Inspired by [v0](https://v0.dev/) and [draw-a-ui](https://github.com/SawyerHood/
 GOOGLE_GENERATIVE_AI_API_KEY=...
 ```
 
-## Demo
+## License
 
-[prompt-ui.nize.ph](https://prompt-ui.nize.ph)
+[MIT](./LICENSE)

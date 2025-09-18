@@ -50,7 +50,10 @@
 <div class="flex flex-col items-center gap-6">
 	<div class="mx-4 flex max-w-xl flex-col gap-8">
 		<div class="flex flex-col items-center gap-2 text-center">
-			<h2 class="text-xl font-semibold">Generate UI from text prompts with AI and Tailwind CSS.</h2>
+			<h2 class="font-medium">
+				An oversimplified UI generator for creating web pages from text prompts with Gemini and
+				Tailwind CSS.
+			</h2>
 			<a
 				href="https://github.com/dotnize/prompt-ui"
 				title="dotnize/prompt-ui"
@@ -68,7 +71,7 @@
 				minlength={12}
 				maxlength={400}
 				required
-				placeholder="A colorful and stylish homepage for my thrift store business"
+				placeholder="A stylish homepage for my thrift store business, styled as if it were a colorful sketchpad drawing."
 			/>
 			<div class="flex justify-between">
 				<label for="prompt" class="text-muted-foreground text-xs">
