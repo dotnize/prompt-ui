@@ -68,9 +68,7 @@
 			<Textarea
 				name="prompt"
 				id="prompt"
-				minlength={12}
 				maxlength={400}
-				required
 				placeholder="A stylish homepage for my thrift store business, styled as if it were a colorful sketchpad drawing."
 			/>
 			<div class="flex justify-between">
