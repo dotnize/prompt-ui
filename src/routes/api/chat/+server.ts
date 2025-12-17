@@ -1,13 +1,8 @@
-import type { Config } from "@sveltejs/adapter-vercel";
 import { streamText, convertToModelMessages } from "ai";
 import { createGoogleGenerativeAI } from "@ai-sdk/google";
 import { GOOGLE_GENERATIVE_AI_API_KEY } from "$env/static/private";
 
 import type { RequestHandler } from "./$types";
-
-export const config: Config = {
-	runtime: "edge",
-};
 
 const google = createGoogleGenerativeAI({
 	apiKey: GOOGLE_GENERATIVE_AI_API_KEY,
