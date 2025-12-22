@@ -24,7 +24,7 @@ export const POST: RequestHandler = async ({ request }) => {
 	const result = streamText({
 		model,
 		system: persona,
-		messages: convertToModelMessages(messages),
+		messages: await convertToModelMessages(messages),
 		// maxOutputTokens: 1536,
 	});
 
