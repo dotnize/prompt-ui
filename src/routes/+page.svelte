@@ -5,6 +5,7 @@
 	import { Github } from "@lucide/svelte";
 	import { toast } from "svelte-sonner";
 	import { Chat } from "@ai-sdk/svelte";
+	import ThemeToggle from "$lib/components/ThemeToggle.svelte";
 
 	let finished = $state(false);
 
@@ -50,24 +51,31 @@
 <div class="flex flex-col items-center gap-6">
 	<div class="mx-4 flex max-w-xl flex-col gap-8">
 		<div class="flex flex-col items-center gap-2 text-center">
-			<h2 class="font-medium">
+			<h2 class="text-xs sm:text-sm">
 				An oversimplified UI generator for creating web pages from text prompts with Gemini and
 				Tailwind CSS.
 			</h2>
-			<a
-				href="https://github.com/dotnize/prompt-ui"
-				title="dotnize/prompt-ui"
-				target="_blank"
-				class="text-muted-foreground flex items-center gap-1 text-xs hover:underline"
-			>
-				<Github class="h-4 w-4" />Source code on GitHub.
-			</a>
+			<div class="flex items-center gap-2">
+				<Button
+					size="icon"
+					variant="ghost"
+					href="https://github.com/dotnize/prompt-ui"
+					title="dotnize/prompt-ui"
+					target="_blank"
+					class="text-muted-foreground"
+				>
+					<Github class="h-4 w-4" />
+				</Button>
+
+				<ThemeToggle />
+			</div>
 		</div>
 
 		<form method="POST" onsubmit={handleSubmit} class="flex flex-col gap-2">
 			<Textarea
 				name="prompt"
 				id="prompt"
+				class="min-h-20"
 				maxlength={400}
 				placeholder="A stylish homepage for my thrift store business, styled as if it were a colorful sketchpad drawing."
 			/>
@@ -81,6 +89,8 @@
 			</div>
 		</form>
 	</div>
+
+	<Preview code="<html>hello</html>" complete={true} />
 	{#if result}
 		<Preview code={result} complete={finished} />
 	{/if}

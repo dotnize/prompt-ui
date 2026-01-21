@@ -2,7 +2,7 @@
 	import * as Tabs from "$lib/components/ui/tabs";
 	import { Button } from "$lib/components/ui/button";
 	import { toast } from "svelte-sonner";
-	import { Copy } from "@lucide/svelte";
+	import { Copy, Download } from "@lucide/svelte";
 	import Highlight, { LineNumbers } from "svelte-highlight";
 	import xml from "svelte-highlight/languages/xml";
 	import theme from "svelte-highlight/styles/hybrid";
@@ -48,10 +48,31 @@
 				title={complete ? undefined : "UI is still generating..."}>Preview</Tabs.Trigger
 			>
 		</Tabs.List>
-		<Button variant="secondary" size="icon" onclick={copyCode} disabled={!complete}>
-			<Copy class="h-4 w-4" />
-			<span class="sr-only">Copy to clipboard</span>
-		</Button>
+		<div class="flex items-center">
+			<Button
+				class="rounded-r-none"
+				variant="outline"
+				size="icon"
+				onclick={copyCode}
+				disabled={!complete}
+				title="Copy to clipboard"
+			>
+				<Copy class="h-4 w-4" />
+				<span class="sr-only">Copy to clipboard</span>
+			</Button>
+			<Button
+				class="rounded-l-none"
+				variant="outline"
+				size="icon"
+				href={`data:text/html;charset=utf-8,${encodeURIComponent(code)}`}
+				download={`prompt-ui-${new Date().toISOString().replace(/[:.]/g, "-").slice(0, -5)}.html`}
+				disabled={!complete}
+				title="Download HTML"
+			>
+				<Download class="h-4 w-4" />
+				<span class="sr-only">Download HTML</span>
+			</Button>
+		</div>
 	</div>
 	<Tabs.Content value="preview">
 		<iframe class="h-full w-full rounded-lg pb-8" title="Preview" srcdoc={code}></iframe>
