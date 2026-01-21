@@ -89,8 +89,6 @@
 			</div>
 		</form>
 	</div>
-
-	<Preview code="<html>hello</html>" complete={true} />
 	{#if result}
 		<Preview code={result} complete={finished} />
 	{/if}
