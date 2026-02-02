@@ -19,7 +19,7 @@
 <Toaster richColors />
 
 <header class="flex items-center justify-center gap-4 pt-16 pb-8 md:pt-32 2xl:pt-48">
-	<h1 class="font-mono text-xl font-bold md:text-3xl xl:text-5xl 2xl:text-6xl">prompt-ui</h1>
+	<h1 class="font-mono text-3xl font-bold md:text-4xl xl:text-6xl 2xl:text-7xl">prompt-ui</h1>
 </header>
 
 <main class="flex items-center justify-center">
