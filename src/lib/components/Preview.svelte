@@ -75,7 +75,7 @@
 		</div>
 	</div>
 	<Tabs.Content value="preview">
-		<iframe class="h-full w-full rounded-lg pb-8" title="Preview" srcdoc={code}></iframe>
+		<iframe class="h-full w-full rounded-lg pb-4" title="Preview" srcdoc={code}></iframe>
 	</Tabs.Content>
 	<Tabs.Content value="code">
 		<Highlight language={xml} {code} let:highlighted>
@@ -83,7 +83,7 @@
 				{highlighted}
 				wrapLines
 				hideBorder
-				class="h-full max-h-[90vh] w-full overflow-auto rounded-lg"
+				class="h-full max-h-[90vh] w-full overflow-auto rounded-lg pb-8"
 			/>
 		</Highlight>
 	</Tabs.Content>
