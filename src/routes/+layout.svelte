@@ -2,7 +2,6 @@
 	import { ModeWatcher } from "mode-watcher";
 	import { Toaster } from "$lib/components/ui/sonner";
 	import "../app.css";
-	import ThemeToggle from "$lib/components/ThemeToggle.svelte";
 
 	let { children } = $props();
 </script>
