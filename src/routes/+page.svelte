@@ -76,7 +76,7 @@
 				name="prompt"
 				id="prompt"
 				class="min-h-20"
-				maxlength={400}
+				maxlength={512}
 				placeholder="A stylish homepage for my thrift store business, styled as if it were a colorful sketchpad drawing."
 			/>
 			<div class="flex justify-between">
