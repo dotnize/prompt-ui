@@ -2,7 +2,8 @@
 	import * as Tabs from "$lib/components/ui/tabs";
 	import { Button } from "$lib/components/ui/button";
 	import { toast } from "svelte-sonner";
-	import { Copy, Download } from "@lucide/svelte";
+	import CopyIcon from "@lucide/svelte/icons/copy";
+	import DownloadIcon from "@lucide/svelte/icons/download";
 	import Highlight, { LineNumbers } from "svelte-highlight";
 	import xml from "svelte-highlight/languages/xml";
 	import theme from "svelte-highlight/styles/hybrid";
@@ -34,6 +35,7 @@
 </script>
 
 <svelte:head>
+	<!-- eslint-disable-next-line svelte/no-at-html-tags -->
 	{@html theme}
 </svelte:head>
 
@@ -57,7 +59,7 @@
 				disabled={!complete}
 				title="Copy to clipboard"
 			>
-				<Copy class="h-4 w-4" />
+				<CopyIcon class="size-4" />
 				<span class="sr-only">Copy to clipboard</span>
 			</Button>
 			<Button
@@ -69,7 +71,7 @@
 				disabled={!complete}
 				title="Download HTML"
 			>
-				<Download class="h-4 w-4" />
+				<DownloadIcon class="size-4" />
 				<span class="sr-only">Download HTML</span>
 			</Button>
 		</div>

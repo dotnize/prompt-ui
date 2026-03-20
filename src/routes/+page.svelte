@@ -2,7 +2,8 @@
 	import Preview from "$lib/components/Preview.svelte";
 	import { Button } from "$lib/components/ui/button";
 	import { Textarea } from "$lib/components/ui/textarea";
-	import { Github } from "@lucide/svelte";
+	import GithubIcon from "@lucide/svelte/icons/github";
+	import LoaderCircleIcon from "@lucide/svelte/icons/loader-circle";
 	import { toast } from "svelte-sonner";
 	import { Chat } from "@ai-sdk/svelte";
 	import ThemeToggle from "$lib/components/ThemeToggle.svelte";
@@ -64,7 +65,7 @@
 					target="_blank"
 					class="text-muted-foreground"
 				>
-					<Github class="h-4 w-4" />
+					<GithubIcon class="size-4" />
 				</Button>
 
 				<ThemeToggle />
@@ -83,7 +84,10 @@
 				<label for="prompt" class="text-muted-foreground text-xs">
 					Minimum of 12 characters.
 				</label>
-				<Button disabled={chat.status !== "ready"} type="submit">
+				<Button disabled={chat.status !== "ready"} type="submit" size="lg">
+					{#if chat.status !== "ready" && chat.status !== "error"}
+						<LoaderCircleIcon class="size-4 animate-spin" />
+					{/if}
 					{chat.status === "ready" ? "Generate" : "Generating..."}
 				</Button>
 			</div>
