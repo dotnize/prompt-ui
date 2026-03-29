@@ -2,8 +2,8 @@
 	import Preview from "$lib/components/Preview.svelte";
 	import { Button } from "$lib/components/ui/button";
 	import { Textarea } from "$lib/components/ui/textarea";
-	import GithubIcon from "@lucide/svelte/icons/github";
 	import LoaderCircleIcon from "@lucide/svelte/icons/loader-circle";
+	import { SiGithub } from "@icons-pack/svelte-simple-icons";
 	import { toast } from "svelte-sonner";
 	import { Chat } from "@ai-sdk/svelte";
 	import ThemeToggle from "$lib/components/ThemeToggle.svelte";
@@ -65,7 +65,7 @@
 					target="_blank"
 					class="text-muted-foreground"
 				>
-					<GithubIcon class="size-4" />
+					<SiGithub class="size-5" />
 				</Button>
 
 				<ThemeToggle />
